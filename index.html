@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sara Ewaida Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  /* Layout: one reading column with wide project bands; test results shown as pass strips, like a CI summary. */
+  --ink: #13213a;
+  --ink-2: #4a566b;
+  --paper: #f6f7f9;
+  --card: #ffffff;
+  --line: #dde2ea;
+  --accent: #0f7d74;
+  --accent-soft: #e3f2f0;
+  --pass: #1d7a45;
+  --pass-soft: #e5f4ea;
+  --display: "IBM Plex Sans Condensed", "Arial Narrow", sans-serif;
+  --body: "IBM Plex Sans", "Segoe UI", Arial, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ink: #e6ebf3; --ink-2: #a3aec0; --paper: #0f1522; --card: #172034; --line: #2a3550;
+    --accent: #4cc3b6; --accent-soft: #15342f; --pass: #5fcf8e; --pass-soft: #163323; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --ink: #e6ebf3; --ink-2: #a3aec0; --paper: #0f1522; --card: #172034; --line: #2a3550;
+  --accent: #4cc3b6; --accent-soft: #15342f; --pass: #5fcf8e; --pass-soft: #163323; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body { margin: 0; background: var(--paper); color: var(--ink); font: 16px/1.6 var(--body); }
+a { color: var(--accent); text-underline-offset: 3px; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 3px; }
+img { max-width: 100%; display: block; }
+h1, h2, h3 { font-family: var(--display); line-height: 1.15; text-wrap: balance; margin: 0; }
+.wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+.mono { font-family: var(--mono); font-size: 0.86em; }
+
+/* Header */
+header { padding: 56px 0 40px; border-bottom: 1px solid var(--line); }
+.who { display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: end; }
+.role { font-family: var(--mono); font-size: 14px; color: var(--accent); letter-spacing: 0.02em; margin-bottom: 10px; }
+h1 { font-size: clamp(40px, 7vw, 64px); font-weight: 700; letter-spacing: -0.01em; }
+.lede { max-width: 62ch; color: var(--ink-2); font-size: 18px; margin: 16px 0 0; }
+.contact { display: grid; gap: 6px; font-size: 15px; text-align: right; }
+.contact a { text-decoration: none; }
+.contact a:hover { text-decoration: underline; }
+.contact .plain { color: var(--ink-2); }
+nav.jump { display: flex; flex-wrap: wrap; gap: 8px 22px; margin-top: 28px; font-size: 14.5px; }
+nav.jump a { color: var(--ink-2); text-decoration: none; border-bottom: 1px solid var(--line); padding-bottom: 2px; }
+nav.jump a:hover { color: var(--accent); border-color: var(--accent); }
+
+section { padding: 56px 0; border-bottom: 1px solid var(--line); }
+.sec-label { font-family: var(--mono); font-size: 13px; color: var(--ink-2); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; }
+h2 { font-size: 32px; font-weight: 700; }
+.sec-intro { color: var(--ink-2); max-width: 64ch; margin: 10px 0 0; }
+
+/* Project */
+.project { margin-top: 40px; background: var(--card); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+.project + .project { margin-top: 32px; }
+.p-head { padding: 28px 28px 0; display: grid; grid-template-columns: 1fr auto; gap: 16px 24px; align-items: start; }
+.p-head h3 { font-size: 28px; }
+.p-sub { color: var(--ink-2); margin: 6px 0 0; max-width: 60ch; }
+.p-links { display: flex; gap: 10px; flex-wrap: wrap; }
+.btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; border-radius: 6px; border: 1px solid var(--line); color: var(--ink); text-decoration: none; font-size: 14.5px; font-weight: 500; background: var(--card); white-space: nowrap; }
+.btn:hover { border-color: var(--accent); color: var(--accent); }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+:root[data-theme="dark"] .btn.primary { color: #0f1522; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .btn.primary { color: #0f1522; } }
+.btn.primary:hover { filter: brightness(1.08); color: #fff; }
+
+.results { display: flex; flex-wrap: wrap; gap: 8px; padding: 18px 28px 0; }
+.result { font-family: var(--mono); font-size: 13px; background: var(--pass-soft); color: var(--pass); border-radius: 4px; padding: 3px 9px; font-variant-numeric: tabular-nums; }
+.result::before { content: "\2713\00a0"; }
+
+.shots { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; padding: 22px 28px 0; }
+.shots .stack { display: contents; }
+figure { margin: 0; }
+figure img { border: 1px solid var(--line); border-radius: 6px; width: 100%; height: auto; }
+figcaption { font-size: 13px; color: var(--ink-2); margin-top: 6px; }
+
+.p-body { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; padding: 24px 28px 28px; }
+.p-body h4 { margin: 0 0 8px; font-size: 15px; font-family: var(--body); font-weight: 600; }
+.p-body ul { margin: 0; padding-left: 18px; }
+.p-body li { margin: 4px 0; }
+.stack-line { font-family: var(--mono); font-size: 13px; color: var(--ink-2); padding: 0 28px 24px; }
+.demo-note { font-size: 14px; color: var(--ink-2); background: var(--accent-soft); border-radius: 6px; padding: 10px 14px; margin-top: 14px; }
+
+/* Defect flow */
+.flow { list-style: none; margin: 32px 0 0; padding: 0; display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; counter-reset: step; }
+.flow li { counter-increment: step; background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 16px; }
+.flow li::before { content: counter(step, decimal-leading-zero); font-family: var(--mono); font-size: 13px; color: var(--accent); display: block; margin-bottom: 6px; }
+.flow strong { display: block; font-size: 16px; }
+.flow span { font-size: 14px; color: var(--ink-2); }
+.example { margin-top: 18px; font-size: 15px; color: var(--ink-2); max-width: 75ch; }
+
+/* Timeline */
+.entries { display: grid; gap: 28px; margin-top: 32px; }
+.entry { display: grid; grid-template-columns: 180px 1fr; gap: 24px; }
+.entry .when { font-family: var(--mono); font-size: 13.5px; color: var(--ink-2); padding-top: 4px; font-variant-numeric: tabular-nums; }
+.entry h3 { font-size: 22px; }
+.entry .org { color: var(--ink-2); font-weight: 400; font-family: var(--body); font-size: 16px; }
+.entry ul { margin: 8px 0 0; padding-left: 18px; }
+.entry li { margin: 4px 0; }
+.entry .tools { font-family: var(--mono); font-size: 13px; color: var(--ink-2); margin-top: 8px; }
+
+.cards { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 32px; }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 22px; display: flex; flex-direction: column; gap: 8px; }
+.card h3 { font-size: 21px; }
+.card p { margin: 0; color: var(--ink-2); }
+.card .tools { font-family: var(--mono); font-size: 13px; color: var(--ink-2); }
+.card .p-links { margin-top: auto; padding-top: 6px; }
+
+.skills { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px 40px; margin-top: 28px; }
+.skills h3 { font-size: 17px; font-family: var(--body); font-weight: 600; margin-bottom: 8px; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { font-size: 14px; border: 1px solid var(--line); background: var(--card); border-radius: 4px; padding: 2px 9px; }
+
+.avatar { width: 112px; height: 112px; border-radius: 50%; object-fit: cover; border: 3px solid var(--card); box-shadow: 0 0 0 1px var(--line); margin-bottom: 20px; }
+.gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 14px; }
+.gallery img { aspect-ratio: 4 / 5; object-fit: cover; width: 100%; height: auto; border-radius: 6px; border: 1px solid var(--line); }
+footer { padding: 40px 0 56px; color: var(--ink-2); font-size: 14.5px; }
+footer .row { display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between; }
+
+@media (max-width: 860px) {
+  .who { grid-template-columns: 1fr; }
+  .contact { text-align: left; }
+  .p-head { grid-template-columns: 1fr; }
+  .shots { grid-template-columns: 1fr; }
+  .p-body { grid-template-columns: 1fr; gap: 20px; }
+  .flow { grid-template-columns: 1fr 1fr; }
+  .entry { grid-template-columns: 1fr; gap: 4px; }
+  .cards, .skills { grid-template-columns: 1fr; }
+  .gallery { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 420px) {
+  .wrap { padding: 0 16px; }
+  .p-head, .results, .shots, .p-body { padding-left: 18px; padding-right: 18px; }
+  .stack-line { padding: 0 18px 20px; }
+  .flow { grid-template-columns: 1fr; }
+  .gallery { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="who">
+      <div>
+        <img class="avatar" src="img/sara.jpg" alt="Sara Ewaida" width="360" height="360">
+        <h1>Sara Ewaida</h1>
+        <p class="lede">Computer engineer who tests software end to end and investigates what breaks. I write test cases, automate browser, API and backend tests, trace issues through logs, request IDs and SQL, and document bugs so a developer can fix them on the first read.</p>
+      </div>
+      <div class="contact">
+        <a href="https://github.com/SaraEwaida">github.com/SaraEwaida</a>
+        <a href="https://www.linkedin.com/in/sara-ewaida">linkedin.com/in/sara-ewaida</a>
+        <span class="plain">saraewaida25@gmail.com</span>
+        <span class="plain">+970 592599303</span>
+        <span class="plain">Ramallah, Palestine</span>
+      </div>
+    </div>
+    <nav class="jump" aria-label="Sections">
+      <a href="#qa-projects">QA projects</a>
+      <a href="#defects">How I handle a defect</a>
+      <a href="#experience">Experience</a>
+      <a href="#other-projects">Other projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#education">Education</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section id="qa-projects">
+  <div class="wrap">
+    <div class="sec-label">Featured</div>
+    <h2>QA and support projects</h2>
+    <p class="sec-intro">Two health-tech applications built to show the work of a QA and L1 support engineer: real backends and databases, documented test cases, automated suites that run, and bugs written up with root cause. Both are live, with one-click demo accounts.</p>
+
+    <article class="project" aria-labelledby="p-dispenser">
+      <div class="p-head">
+        <div>
+          <h3 id="p-dispenser">Dispenser Fleet Lab</h3>
+          <p class="p-sub">A simulated fleet of 24 connected medication dispensers and the support console a care team uses to watch them. Devices talk to the cloud over MQTT and misbehave like field devices do.</p>
+        </div>
+        <div class="p-links">
+          <a class="btn primary" href="https://dispenser-fleet-lab.onrender.com">Open live demo</a>
+          <a class="btn" href="https://github.com/SaraEwaida/dispenser-fleet-lab">GitHub</a>
+        </div>
+      </div>
+      <div class="results" aria-label="Test results">
+        <span class="result">69/69 pytest</span>
+        <span class="result">7/7 Playwright</span>
+        <span class="result">120/120 Newman assertions</span>
+        <span class="result">CI on every push</span>
+      </div>
+      <div class="shots">
+        <figure><img src="img/df-fault-lab.jpg" alt="Fault Lab page: fault descriptions with expected results and a device by fault toggle matrix" width="1440" height="900" loading="lazy"><figcaption>Fault Lab: inject a device fault, then check the cloud reacts as specified.</figcaption></figure>
+        <div class="stack">
+          <figure><img src="img/df-alerts.jpg" alt="Alerts list with missed dose, offline and clock drift alerts, severities and SLA timers" width="1440" height="900" loading="lazy"><figcaption>Alerts with severity and acknowledgement SLA.</figcaption></figure>
+          <figure><img src="img/df-messages.jpg" alt="Message log showing accepted, duplicate and out-of-order device messages" width="1440" height="900" loading="lazy"><figcaption>Message log with duplicates and rejected payloads.</figcaption></figure>
+        </div>
+      </div>
+      <div class="p-body">
+        <div>
+          <h4>What it tests</h4>
+          <ul>
+            <li>Devices that go offline and replay buffered events on reconnect</li>
+            <li>Duplicate and corrupt messages that must never change dose counts</li>
+            <li>Clock drift, where a remote resync must fail until the hardware is fixed</li>
+            <li>Missed-dose and offline thresholds tested at their exact boundaries</li>
+          </ul>
+        </div>
+        <div>
+          <h4>Support and QA work</h4>
+          <ul>
+            <li>Four real defects found and documented with root cause and regression test</li>
+            <li>L1 playbooks for every alert: what to check, what to do, when to escalate</li>
+            <li>Ticket workflow with notes and required resolutions</li>
+            <li>Test cases traced to the automated tests that cover them</li>
+          </ul>
+        </div>
+      </div>
+      <div class="stack-line">Python · FastAPI · MQTT · PostgreSQL · React · TypeScript · Playwright · Postman · GitHub Actions · Docker</div>
+    </article>
+
+    <article class="project" aria-labelledby="p-medicare">
+      <div class="p-head">
+        <div>
+          <h3 id="p-medicare">MediCare QA Lab</h3>
+          <p class="p-sub">A pharmacy and patient management platform with a QA workspace built in: test cases, test runs, bug reports, an API and logs explorer, and a Bug Lab where defects can be switched on and reproduced safely.</p>
+        </div>
+        <div class="p-links">
+          <a class="btn primary" href="https://medicare-qa-lab.onrender.com">Open live demo</a>
+          <a class="btn" href="https://github.com/SaraEwaida/medicare-qa-lab">GitHub</a>
+        </div>
+      </div>
+      <div class="results" aria-label="Test results">
+        <span class="result">115/115 pytest</span>
+        <span class="result">17/17 Playwright</span>
+        <span class="result">31/31 Newman requests</span>
+        <span class="result">30 manual test cases</span>
+      </div>
+      <div class="shots">
+        <figure><img src="img/mc-bug-lab.jpg" alt="Bug Lab reproducing a stale refill status defect" width="1440" height="900" loading="lazy"><figcaption>Bug Lab: defects that only fire in an isolated sandbox.</figcaption></figure>
+        <div class="stack">
+          <figure><img src="img/mc-bug-report.jpg" alt="Bug report page with steps to reproduce, root cause and linked regression test" width="1440" height="900" loading="lazy"><figcaption>Bug report with root cause and regression link.</figcaption></figure>
+          <figure><img src="img/mc-trace.jpg" alt="Request trace showing a request ID, status code, timing and sanitized log entries" width="1440" height="900" loading="lazy"><figcaption>Tracing one request by its ID through the logs.</figcaption></figure>
+        </div>
+      </div>
+      <div class="p-body">
+        <div>
+          <h4>What it covers</h4>
+          <ul>
+            <li>Patients, prescriptions and a refill approval workflow with validation</li>
+            <li>Role-based access for pharmacist, support and QA users</li>
+            <li>Database rules that block duplicate patients and duplicate refills</li>
+            <li>Sanitized logs and audit trail; contact details masked for support</li>
+          </ul>
+        </div>
+        <div>
+          <h4>Support and QA work</h4>
+          <ul>
+            <li>Five bug reports, including one real bug the browser tests caught</li>
+            <li>Support tickets with diagnostics, escalation and one-click conversion to a bug</li>
+            <li>Level 1 support guide with triage steps and customer reply templates</li>
+            <li>Real test results uploaded into the app, not hardcoded</li>
+          </ul>
+        </div>
+      </div>
+      <div class="stack-line">Python · FastAPI · PostgreSQL · React · TypeScript · Playwright · Postman · Docker</div>
+    </article>
+    <p class="demo-note">Both demos sign in with one click on the login page. They run on free hosting, so the first visit can take up to a minute to wake up. All data is synthetic.</p>
+  </div>
+</section>
+
+<section id="defects">
+  <div class="wrap">
+    <div class="sec-label">Method</div>
+    <h2>How I handle a defect</h2>
+    <p class="sec-intro">The same path for a customer ticket or a failing test.</p>
+    <ol class="flow">
+      <li><strong>Reproduce</strong><span>Get the exact steps, account and data that make it happen every time.</span></li>
+      <li><strong>Collect evidence</strong><span>Request ID, logs, API response, message IDs, and a SQL check of what was stored.</span></li>
+      <li><strong>Report</strong><span>Expected versus actual, severity and priority, environment, steps a developer can follow.</span></li>
+      <li><strong>Find the cause</strong><span>Narrow it to the rule or line of code that is wrong.</span></li>
+      <li><strong>Verify the fix</strong><span>Add a regression test named after the test case so it cannot come back.</span></li>
+    </ol>
+    <p class="example"><strong>Example from Dispenser Fleet Lab:</strong> after a server restart, almost every device message was flagged out of order. The message log showed devices restarting their counter at 1 while the server still expected the old high number. A device's startup message now starts a new count; test TC-033 covers both a live restart and a replayed one.</p>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="wrap">
+    <div class="sec-label">Work</div>
+    <h2>Experience</h2>
+    <div class="entries">
+      <div class="entry">
+        <div class="when">Mar 2026 – Oct 2026</div>
+        <div>
+          <h3>Networking Intern <span class="org">· BCI</span></h3>
+          <ul>
+            <li>Hands-on work with network configuration, infrastructure and monitoring.</li>
+            <li>West Bank Water Department SCADA project, supervised by Iyad Nubani: developed HMI software in Control Maestro for a system monitoring over 40 water wells, and configured SCADA tags to map field sensor data into the HMI.</li>
+            <li>Performed on-site server checks at the Water Department to verify SCADA connectivity and system operation.</li>
+          </ul>
+          <div class="tools">Control Maestro · SCADA · HMI · Networking</div>
+          <div class="gallery">
+            <figure><img src="img/scada-hmi-editor.jpg" alt="Building a pump station HMI screen in Control Maestro, with tank, pumps, valves and alarm indicators" width="1200" height="1328" loading="lazy"><figcaption>Building a pump station screen in Control Maestro.</figcaption></figure>
+            <figure><img src="img/scada-hmi-station.jpg" alt="Booster station HMI running on a monitor at the Water Department" width="1443" height="1600" loading="lazy"><figcaption>A booster station HMI running on site.</figcaption></figure>
+            <figure><img src="img/scada-control-room.jpg" alt="Water Department monitoring workstation with a well flow monitoring system poster on the wall" width="1200" height="1600" loading="lazy"><figcaption>The well monitoring workstation at the Water Department.</figcaption></figure>
+          </div>
+        </div>
+      </div>
+      <div class="entry">
+        <div class="when">Mar 2026 – Aug 2026</div>
+        <div>
+          <h3>Data Analysis Engineering Intern <span class="org">· Palestine Investment Bank</span></h3>
+          <ul>
+            <li>Consolidated and validated banking data for recurring management reports.</li>
+            <li>Completed a structured Oracle SQL program across 20 banking tables: window functions, JOINs and business-metric queries that feed BI dashboards.</li>
+          </ul>
+          <div class="tools">Oracle SQL · Python · Power BI · Excel</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="other-projects">
+  <div class="wrap">
+    <div class="sec-label">Also built</div>
+    <h2>Other projects</h2>
+    <div class="cards">
+      <div class="card">
+        <h3>DigitalLogicHub</h3>
+        <p>Graduation project. A full-stack e-learning platform that recommends Digital Systems material per student, combining a VARK learning-style assessment and performance tracking with K-Means collaborative filtering. Secure sign-up with email verification and password recovery.</p>
+        <div class="tools">Python · FastAPI · PostgreSQL · React · K-Means · Sep 2025 – Jul 2026</div>
+        <div class="p-links"><a class="btn" href="https://digital-logic-hub-graduation.vercel.app/">Open live demo</a></div>
+      </div>
+      <div class="card">
+        <h3>Personal Finance Tracker</h3>
+        <p>Multi-user Android app for income, expenses, budgets and goals, with category management, budget alerts and a summary dashboard.</p>
+        <div class="tools">Android · Java · Material Design · 2024</div>
+        <div class="p-links"><a class="btn" href="https://github.com/SaraEwaida/finance-tracker-android-app">GitHub</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <div class="sec-label">Toolbox</div>
+    <h2>Skills</h2>
+    <div class="skills">
+      <div><h3>Testing &amp; QA</h3><div class="chips"><span class="chip">Test case design</span><span class="chip">Boundary and negative testing</span><span class="chip">Regression testing</span><span class="chip">Playwright</span><span class="chip">pytest</span><span class="chip">Postman / Newman</span><span class="chip">Bug reporting</span><span class="chip">GitHub Actions CI</span></div></div>
+      <div><h3>Support &amp; troubleshooting</h3><div class="chips"><span class="chip">Ticket triage</span><span class="chip">Escalation</span><span class="chip">Log analysis</span><span class="chip">Request-ID tracing</span><span class="chip">HTTP status codes</span><span class="chip">SQL verification</span><span class="chip">JIRA</span></div></div>
+      <div><h3>Data &amp; APIs</h3><div class="chips"><span class="chip">PostgreSQL</span><span class="chip">Oracle SQL</span><span class="chip">Python</span><span class="chip">REST APIs</span><span class="chip">FastAPI</span><span class="chip">Power BI</span><span class="chip">Excel</span></div></div>
+      <div><h3>Development &amp; tools</h3><div class="chips"><span class="chip">TypeScript</span><span class="chip">JavaScript</span><span class="chip">React</span><span class="chip">Java</span><span class="chip">C / C++</span><span class="chip">Git</span><span class="chip">Docker</span><span class="chip">Linux</span><span class="chip">MQTT</span></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="education">
+  <div class="wrap">
+    <div class="sec-label">Learning</div>
+    <h2>Education and certification</h2>
+    <div class="entries">
+      <div class="entry">
+        <div class="when">2021 – 2026</div>
+        <div><h3>B.Sc. in Computer Engineering <span class="org">· Birzeit University</span></h3>
+          <div class="tools">Databases · Data Structures &amp; Algorithms · Software Engineering · OOP · Computer Networks · AI</div></div>
+      </div>
+      <div class="entry">
+        <div class="when">Feb 2025 – Jun 2025</div>
+        <div><h3>Machine Learning Program <span class="org">· Udacity</span></h3>
+          <div class="tools">Data preprocessing · Model training · Evaluation · <a href="https://drive.google.com/file/d/15JHPytli4iFgT0q_GGWKBRlkB-_7N9va/view?usp=sharing">Certificate</a></div></div>
+      </div>
+      <div class="entry">
+        <div class="when">Mar 2023 – Mar 2024</div>
+        <div><h3>Front-End &amp; Back-End Development <span class="org">· Knowledge Academy</span></h3>
+          <div class="tools">HTML · CSS · JavaScript · React · Node.js · Express.js</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap row">
+    <span>Sara Ewaida · saraewaida25@gmail.com · +970 592599303</span>
+    <span><a href="https://github.com/SaraEwaida">GitHub</a> · <a href="https://www.linkedin.com/in/sara-ewaida">LinkedIn</a></span>
+  </div>
+</footer>
+</body>
+</html>
